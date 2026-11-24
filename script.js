@@ -51,7 +51,24 @@
     b.addEventListener("click", function () { setLang(b.getAttribute("data-lang")); });
   });
   document.querySelectorAll(".js-year").forEach(function (el) { el.textContent = new Date().getFullYear(); });
-  document.querySelectorAll(".js-version").forEach(function (el) { el.textContent = SITE.version || ""; });
+  /* version + update history (changelog.js): the last entry is the current version */
+  var CHANGES = window.NXT_CHANGELOG || [];
+  if (CHANGES.length) SITE.version = "v" + CHANGES[CHANGES.length - 1].v;
+  function renderChangelog() {
+    document.querySelectorAll(".js-version").forEach(function (el) { el.textContent = SITE.version || ""; });
+    document.querySelectorAll(".js-changelog").forEach(function (ol) {
+      ol.innerHTML = "";
+      CHANGES.slice().reverse().forEach(function (c) {
+        var li = document.createElement("li");
+        var head = document.createElement("span"); head.className = "changelog__meta"; head.dir = "ltr";
+        head.textContent = "v" + c.v + " · " + c.date;
+        var txt = document.createElement("span"); txt.textContent = loc(c.text);
+        li.appendChild(head); li.appendChild(txt); ol.appendChild(li);
+      });
+    });
+  }
+  renderChangelog();
+  document.addEventListener("nxt:lang", renderChangelog);
   setLang(lang, true);
 
   var hero = document.getElementById("hero");

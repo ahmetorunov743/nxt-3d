@@ -75,7 +75,13 @@
     </div>
     <div class="footer__bottom">
       <span>© <span class="js-year"></span> NXT Fit Out Technical Service. <span data-i18n="footer.rights"></span></span>
-      <span class="footer__version js-version"></span>
+      <details class="changelog">
+        <summary class="footer__version" data-i18n-attr="title:footer.changelog"><span class="js-version"></span></summary>
+        <div class="changelog__box">
+          <p class="changelog__title" data-i18n="footer.changelog"></p>
+          <ol class="changelog__list js-changelog" reversed></ol>
+        </div>
+      </details>
     </div>
   </footer>
 
@@ -112,6 +118,7 @@
   </template>
 
   <script src="i18n.js"></script>
+  <script src="changelog.js"></script>
   <script src="projects.js"></script>
   <script src="script.js"></script>
 </body>

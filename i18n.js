@@ -7,7 +7,7 @@
    ===================================================================== */
 window.NXT_SITE = {
   foundedYear: 2014,          // placeholder
-  version: "v0.1 demo",
+  version: "v0.10",             // fallback only: the real number comes from changelog.js
   defaultLang: "en"
 };
 
@@ -46,6 +46,7 @@ window.NXT_I18N = {
     "footer.legal": "Legal",
     "footer.privacy": "Privacy Policy",
     "footer.terms": "Terms of Service",
+    "footer.changelog": "Update history",
     "footer.rights": "All rights reserved.",
 
     "common.back": "Back to home",
@@ -89,6 +90,7 @@ window.NXT_I18N = {
     "footer.legal": "Документы",
     "footer.privacy": "Политика конфиденциальности",
     "footer.terms": "Условия предоставления услуг",
+    "footer.changelog": "История обновлений",
     "footer.rights": "Все права защищены.",
 
     "common.back": "На главную",
@@ -132,6 +134,7 @@ window.NXT_I18N = {
     "footer.legal": "المستندات",
     "footer.privacy": "سياسة الخصوصية",
     "footer.terms": "شروط تقديم الخدمات",
+    "footer.changelog": "سجل التحديثات",
     "footer.rights": "جميع الحقوق محفوظة.",
 
     "common.back": "العودة إلى الرئيسية",

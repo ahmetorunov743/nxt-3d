@@ -190,15 +190,13 @@ html[dir="rtl"] .center { direction: rtl; }
 .center {
   grid-area: center;
   align-self: stretch;
-  display: flex; align-items: stretch; justify-content: center;
-  padding: 16px 0;
+  display: flex; align-items: center; justify-content: center;
   min-width: 0;
   overflow: hidden;
 }
 .stage {
   display: grid;
   width: 100%; max-width: 640px;
-  height: 100%; max-height: 100%;
 }
 .panel {
   grid-area: 1 / 1;
@@ -244,14 +242,10 @@ html[lang="ar"] .eyebrow { letter-spacing: 0; }
 
 /* project panel */
 .gallery { margin: 0; }
-.panel--project { display: flex; flex-direction: column; justify-content: center; height: 100%; min-height: 0; }
-.panel--project .gallery { flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column; }
-.panel--project .link-btn { align-self: flex-start; }
 .gallery__main {
   border-radius: var(--radius-l); overflow: hidden;
   aspect-ratio: 16 / 10;
   max-height: 44svh; width: 100%;
-  flex: 0 1 auto; min-height: 0;
   background: var(--surface);
   box-shadow: 0 40px 70px -45px rgba(0,0,0,.45);
 }
@@ -310,12 +304,43 @@ html[dir="rtl"] .link-btn span[aria-hidden] { display: inline-block; transform: 
   font-size: 12px; color: rgba(255,255,255,.45);
 }
 .footer__version { padding: 3px 10px; border: 1px solid rgba(255,255,255,.15); border-radius: 999px; }
+.changelog { position: relative; }
+.changelog summary { list-style: none; cursor: pointer; font-variant-numeric: tabular-nums; transition: border-color .3s, color .3s; }
+.changelog summary::-webkit-details-marker { display: none; }
+.changelog summary:hover, .changelog[open] summary { border-color: rgba(255,255,255,.4); color: #fff; }
+.changelog__box {
+  position: absolute; bottom: calc(100% + 10px); inset-inline-end: 0; z-index: 5;
+  width: min(420px, calc(100vw - 32px)); max-height: 60vh; overflow-y: auto;
+  padding: 18px 20px; border-radius: var(--radius-m);
+  background: #202020; border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,.6);
+}
+.changelog__title { margin: 0 0 10px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+html[lang="ar"] .changelog__title { letter-spacing: 0; }
+.changelog__list { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.changelog__list li { display: grid; gap: 2px; font-size: 13px; line-height: 1.45; color: rgba(255,255,255,.8); }
+.changelog__meta { font-size: 11px; color: var(--accent); font-variant-numeric: tabular-nums; }
 
 /* ---------- Legal pages ---------- */
 .legal { max-width: 760px; margin: 0 auto; padding: 40px var(--gutter) 100px; }
 .legal h1 { font-size: clamp(32px, 4vw, 52px); font-weight: 500; letter-spacing: -.02em; margin: 24px 0 8px; }
 .legal .updated { color: var(--ink-3); font-size: 14px; margin: 0 0 32px; }
 .legal p { color: var(--ink-2); }
+
+/* ---------- Desktop & landscape: the project always fits, photo slightly wider than square ---------- */
+@media (min-width: 561px) and (orientation: landscape), (min-width: 1201px) {
+  .center { align-items: stretch; padding: 30px 0 14px; }        /* sits a little lower */
+  .stage { height: 100%; max-height: 100%; }
+  .panel--project { display: flex; flex-direction: column; justify-content: center; height: 100%; min-height: 0; }
+  .panel--project .gallery { flex: none; }
+  .panel--project .link-btn { align-self: flex-start; }
+  .gallery__main {
+    aspect-ratio: 5 / 4;                                          /* close to the square drum cards, not a pure square */
+    width: auto; max-width: 100%;
+    height: clamp(150px, calc(100svh - var(--header-h) - 380px), 46svh);
+    max-height: none;
+  }
+}
 
 /* ---------- Large screens / TV ---------- */
 @media (min-width: 1900px) {
@@ -381,6 +406,9 @@ html[dir="rtl"] .link-btn span[aria-hidden] { display: inline-block; transform: 
   }
   .link-btn { margin-top: 4px; padding: 4px 0; font-size: 12px; align-self: flex-start; }
   .footer__inner { grid-template-columns: 1fr; gap: 28px; }
+  .changelog { width: 100%; }
+  .changelog summary { display: inline-block; }
+  .changelog__box { position: static; width: 100%; max-height: 50vh; margin-top: 12px; }
 }
 
 /* short phones (iPhone SE & co.) */
