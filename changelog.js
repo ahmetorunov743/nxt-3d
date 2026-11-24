@@ -46,5 +46,9 @@ window.NXT_CHANGELOG = [
   { v: "0.10", date: "2026-11-24", text: {
       en: "Desktop: the centre photo is no longer stretched — slightly wider than square, a bit lower.",
       ru: "Компьютер: фото в центре больше не растянуто, почти квадратное и чуть ниже.",
-      ar: "سطح المكتب: الصورة في الوسط لم تعد ممتدة، شبه مربعة وأخفض قليلًا." } }
+      ar: "سطح المكتب: الصورة في الوسط لم تعد ممتدة، شبه مربعة وأخفض قليلًا." } },
+  { v: "0.11", date: "2026-11-24", text: {
+      en: "Project window: all photos, full description, scope of work, WhatsApp, next / previous project — without leaving the page. Each project has its own link.",
+      ru: "Окно проекта: все фото, полное описание, состав работ, WhatsApp, следующий и предыдущий проект, без перехода на другую страницу. У каждого проекта своя ссылка.",
+      ar: "نافذة المشروع: كل الصور والوصف الكامل ونطاق الأعمال وواتساب والمشروع التالي والسابق دون مغادرة الصفحة. لكل مشروع رابط خاص." } }
 ];

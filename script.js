@@ -447,6 +447,12 @@
     el.querySelector(".js-area").textContent = p.area ? p.area.toLocaleString(lang === "ar" ? "ar-AE" : lang) + " " + t("project.areaUnit") : "—";
     el.querySelector(".js-desc").textContent = loc(p.description);
     el.querySelector(".js-back").addEventListener("click", function () { showWelcome(-1); });
+    el.querySelectorAll(".js-open").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var active = thumbs && thumbs.querySelectorAll ? [].indexOf.call(thumbs.querySelectorAll("button"), thumbs.querySelector(".is-active")) : 0;
+        openModal(drum, abs, Math.max(0, active), b);
+      });
+    });
     return el;
   }
 
@@ -551,8 +557,172 @@
   }, { passive: true });
   onScroll();
 
+  /* =====================================================================
+     Project window (modal): everything about one project, over the page
+     ===================================================================== */
+  var pm = {
+    root: document.getElementById("pmodal"),
+    img: document.getElementById("pm-img"), stage: document.getElementById("pm-stage"),
+    counter: document.getElementById("pm-counter"), thumbs: document.getElementById("pm-thumbs"),
+    work: document.getElementById("pm-work"), count: document.getElementById("pm-count"),
+    title: document.getElementById("pm-title"), meta: document.getElementById("pm-meta"),
+    text: document.getElementById("pm-text"), scopeWrap: document.getElementById("pm-scope-wrap"),
+    scope: document.getElementById("pm-scope"), wa: document.getElementById("pm-wa"),
+    drum: null, abs: 0, photo: 0, opener: null, open: false
+  };
+
+  function setPhoto(i, dir) {
+    var p = pm.drum.items[mod(pm.abs, pm.drum.n)], imgs = p.images || [];
+    if (!imgs.length) return;
+    pm.photo = mod(i, imgs.length);
+    var src = imgs[pm.photo];
+    if (pm.img.getAttribute("src") && !reduceMotion && pm.img.animate) {
+      var d = dir || 1;
+      pm.img.animate([{ opacity: 1, transform: "translateX(0)" }, { opacity: 0, transform: "translateX(" + (-d * 24) + "px)" }],
+        { duration: 160, easing: "ease-in", fill: "forwards" }).onfinish = function () {
+        pm.img.src = src;
+        pm.img.animate([{ opacity: 0, transform: "translateX(" + (d * 24) + "px)" }, { opacity: 1, transform: "translateX(0)" }],
+          { duration: 260, easing: "cubic-bezier(.22,.61,.36,1)", fill: "forwards" });
+      };
+    } else pm.img.src = src;
+    pm.img.alt = loc(p.title) + " — " + (pm.photo + 1);
+    pm.counter.textContent = t("modal.photo").replace("{i}", pm.photo + 1).replace("{n}", imgs.length);
+    pm.thumbs.querySelectorAll("button").forEach(function (b, k) { b.classList.toggle("is-active", k === pm.photo); });
+    var multi = imgs.length > 1;
+    pm.root.classList.toggle("is-single", !multi);
+  }
+
+  function fillModal() {
+    var drum = pm.drum, p = drum.items[mod(pm.abs, drum.n)];
+    pm.work.textContent = t("work." + p.workType);
+    pm.count.textContent = (mod(pm.abs, drum.n) + 1) + " / " + drum.n;
+    pm.title.textContent = loc(p.title);
+    // facts: the usual ones + optional fields from projects.js
+    var rows = [
+      ["project.location", loc(p.location)],
+      ["project.year", p.year || "—"],
+      ["project.area", p.area ? p.area.toLocaleString(lang === "ar" ? "ar-AE" : lang) + " " + t("project.areaUnit") : "—"],
+      ["modal.workType", t("work." + p.workType)]
+    ];
+    if (p.duration) rows.push(["modal.duration", loc(p.duration)]);
+    if (p.client) rows.push(["modal.client", loc(p.client)]);
+    pm.meta.innerHTML = "";
+    rows.forEach(function (r) {
+      var d = document.createElement("div"), dt = document.createElement("dt"), dd = document.createElement("dd");
+      dt.textContent = t(r[0]); dd.textContent = r[1];
+      d.appendChild(dt); d.appendChild(dd); pm.meta.appendChild(d);
+    });
+    // text: short description + full story (details) — placeholder until real texts arrive
+    pm.text.innerHTML = "";
+    [loc(p.description), p.details ? loc(p.details) : t("modal.demoDetails")].forEach(function (para) {
+      String(para).split(/\n\s*\n/).forEach(function (chunk) {
+        if (!chunk.trim()) return;
+        var el = document.createElement("p"); el.textContent = chunk.trim(); pm.text.appendChild(el);
+      });
+    });
+    // scope of work: from projects.js, otherwise a typical list for this type of work
+    var scope = p.scope ? (Array.isArray(p.scope) ? p.scope.map(loc) : loc(p.scope).split("|")) : t("scope." + p.workType).split("|");
+    pm.scope.innerHTML = "";
+    scope.filter(Boolean).forEach(function (item) { var li = document.createElement("li"); li.textContent = item; pm.scope.appendChild(li); });
+    pm.scopeWrap.hidden = !pm.scope.children.length;
+    pm.wa.href = "https://wa.me/971558208753?text=" + encodeURIComponent(t("modal.waText").replace("{title}", loc(p.title)));
+    // gallery
+    pm.thumbs.innerHTML = "";
+    (p.images || []).forEach(function (src, k) {
+      var b = document.createElement("button");
+      b.type = "button"; b.setAttribute("aria-label", t("modal.photo").replace("{i}", k + 1).replace("{n}", p.images.length));
+      var im = document.createElement("img"); im.alt = ""; im.src = src; b.appendChild(im);
+      b.addEventListener("click", function () { setPhoto(k, k >= pm.photo ? 1 : -1); });
+      pm.thumbs.appendChild(b);
+    });
+    pm.root.querySelector(".pmodal__dialog").scrollTop = 0;
+    var body = pm.root.querySelector(".pmodal__body"); if (body) body.scrollTop = 0;
+  }
+
+  function openModal(drum, abs, photo, opener) {
+    pm.drum = drum; pm.abs = abs; pm.opener = opener || document.activeElement;
+    pm.img.removeAttribute("src");
+    fillModal(); setPhoto(photo || 0);
+    pm.root.classList.add("is-open"); pm.root.setAttribute("aria-hidden", "false");
+    document.documentElement.classList.add("modal-open");
+    pm.open = true;
+    var p = drum.items[mod(abs, drum.n)];
+    try { history.replaceState(null, "", "#project-" + p.id); } catch (e) {}
+    setTimeout(function () { pm.root.querySelector(".pmodal__dialog").focus({ preventScroll: true }); }, 60);
+  }
+  function closeModal() {
+    if (!pm.open) return;
+    pm.open = false;
+    pm.root.classList.remove("is-open"); pm.root.setAttribute("aria-hidden", "true");
+    document.documentElement.classList.remove("modal-open");
+    try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
+    if (pm.opener && pm.opener.focus && document.contains(pm.opener)) pm.opener.focus({ preventScroll: true });
+  }
+  function stepProject(d) {
+    pm.abs += d;
+    pm.drum.goTo(pm.abs, -d);                         // the drum behind follows, so closing lands on this project
+    fillModal(); pm.img.removeAttribute("src"); setPhoto(0);
+    var p = pm.drum.items[mod(pm.abs, pm.drum.n)];
+    try { history.replaceState(null, "", "#project-" + p.id); } catch (e) {}
+  }
+
+  pm.root.querySelectorAll(".js-pm-close").forEach(function (b) { b.addEventListener("click", closeModal); });
+  document.getElementById("pm-prev").addEventListener("click", function () { setPhoto(pm.photo - 1, -1); });
+  document.getElementById("pm-next").addEventListener("click", function () { setPhoto(pm.photo + 1, 1); });
+  document.getElementById("pm-prev-project").addEventListener("click", function () { stepProject(-1); });
+  document.getElementById("pm-next-project").addEventListener("click", function () { stepProject(1); });
+  document.addEventListener("keydown", function (e) {
+    if (!pm.open) return;
+    var rtl = document.documentElement.dir === "rtl";
+    if (e.key === "Escape") { e.preventDefault(); closeModal(); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); setPhoto(pm.photo + (rtl ? -1 : 1), 1); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); setPhoto(pm.photo + (rtl ? 1 : -1), -1); }
+    else if (e.key === "Tab") {                     // keep focus inside the window
+      var f = [].filter.call(pm.root.querySelectorAll("button, a[href]"), function (x) { return x.offsetParent !== null; });
+      if (!f.length) return;
+      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+    }
+  });
+  // swipe between photos
+  (function () {
+    var sx = 0, sy = 0, on = false;
+    pm.stage.addEventListener("pointerdown", function (e) { on = true; sx = e.clientX; sy = e.clientY; });
+    pm.stage.addEventListener("pointerup", function (e) {
+      if (!on) return; on = false;
+      var dx = e.clientX - sx, dy = e.clientY - sy;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        var rtl = document.documentElement.dir === "rtl", d = dx < 0 ? 1 : -1;
+        setPhoto(pm.photo + (rtl ? -d : d), d);
+      }
+    });
+    pm.stage.addEventListener("pointercancel", function () { on = false; });
+  })();
+  // wheel inside the window never turns the drums or moves the page behind it
+  pm.root.addEventListener("wheel", function (e) { e.stopPropagation(); }, { passive: true });
+
+  // a shared link like  …/index.html#project-12  opens that project directly
+  function openFromHash() {
+    var m = /^#project-(.+)$/.exec(location.hash || "");
+    if (!m) return;
+    var id = decodeURIComponent(m[1]);
+    for (var k = 0; k < drums.length; k++) {
+      var d = drums[k];
+      for (var j = 0; j < d.items.length; j++) {
+        if (String(d.items[j].id) === id) {
+          d.goTo(j, -1);
+          setTimeout(function () { openModal(d, j, 0); }, 350);
+          return;
+        }
+      }
+    }
+  }
+  openFromHash();
+  window.addEventListener("hashchange", function () { if (!pm.open) openFromHash(); });
+
   /* ---------------- language & resize ---------------- */
   document.addEventListener("nxt:lang", function () {
+    if (pm.open) { var keep = pm.photo; fillModal(); setPhoto(keep); }
     drums.forEach(function (d) { d.relabel(); });
     var el = current.type === "project" ? buildProject(current.project, current.drum, current.abs) : buildWelcome();
     if (currentEl) currentEl.replaceWith(el);

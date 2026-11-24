@@ -327,6 +327,139 @@ html[lang="ar"] .changelog__title { letter-spacing: 0; }
 .legal .updated { color: var(--ink-3); font-size: 14px; margin: 0 0 32px; }
 .legal p { color: var(--ink-2); }
 
+/* ---------- Project: "details" button and clickable photo ---------- */
+button.gallery__main { display: block; padding: 0; border: 0; cursor: zoom-in; position: relative; }
+button.gallery__main::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: rgba(255,255,255,0); transition: background .35s var(--ease);
+}
+button.gallery__main:hover::after { background: rgba(255,255,255,.08); }
+.project__actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
+.project__actions .link-btn { margin-top: 0; }
+.btn-more {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 11px 20px; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--ink); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: .01em;
+  transition: background .3s var(--ease), transform .3s var(--ease);
+}
+.btn-more:hover { background: #2c2c2c; transform: translateY(-1px); }
+.btn-more__arrow { transition: transform .3s var(--ease); }
+.btn-more:hover .btn-more__arrow { transform: translateX(3px); }
+html[dir="rtl"] .btn-more__arrow, html[dir="rtl"] .pm-arrow { display: inline-block; transform: scaleX(-1); }
+
+/* ---------- Project window (modal) ---------- */
+html.modal-open, html.modal-open body { overflow: hidden; }
+.pmodal { position: fixed; inset: 0; z-index: 100; visibility: hidden; pointer-events: none; }
+.pmodal.is-open { visibility: visible; pointer-events: auto; }
+.pmodal__backdrop {
+  position: absolute; inset: 0; background: rgba(20, 18, 15, .42);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  opacity: 0; transition: opacity .45s var(--ease);
+}
+.pmodal.is-open .pmodal__backdrop { opacity: 1; }
+.pmodal__dialog {
+  position: absolute; left: 50%; top: 50%;
+  width: min(1180px, calc(100vw - 48px)); height: min(780px, calc(100svh - 48px));
+  display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, 1fr);
+  background: var(--bg); border-radius: var(--radius-l); overflow: hidden;
+  box-shadow: 0 60px 120px -40px rgba(0,0,0,.55);
+  transform: translate(-50%, calc(-50% + 30px)) scale(.97); opacity: 0;
+  transition: transform .55s var(--ease), opacity .4s var(--ease);
+  outline: none;
+}
+.pmodal.is-open .pmodal__dialog { transform: translate(-50%, -50%); opacity: 1; }
+.pmodal__close {
+  position: absolute; top: 16px; inset-inline-end: 16px; z-index: 3;
+  width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line);
+  background: rgba(255,255,255,.9); display: grid; place-items: center; cursor: pointer;
+  transition: background .3s var(--ease), color .3s var(--ease);
+}
+.pmodal__close:hover { background: var(--ink); color: #fff; }
+.pmodal__close svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+
+.pmodal__media { position: relative; background: #efece6; display: flex; flex-direction: column; min-height: 0; }
+.pmodal__stage { position: relative; flex: 1; min-height: 0; overflow: hidden; touch-action: pan-y; }
+.pmodal__stage img { width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+.pmodal__nav {
+  position: absolute; top: calc(50% - 44px); z-index: 2;
+  width: 46px; height: 46px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(255,255,255,.88); display: grid; place-items: center;
+  box-shadow: 0 10px 30px -12px rgba(0,0,0,.35);
+  transition: background .3s var(--ease), transform .3s var(--ease);
+}
+.pmodal__nav:hover { background: #fff; transform: scale(1.06); }
+.pmodal__nav svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.pmodal__nav--prev { inset-inline-start: 16px; }
+.pmodal__nav--next { inset-inline-end: 16px; }
+html[dir="rtl"] .pmodal__nav svg { transform: scaleX(-1); }
+.pmodal__counter {
+  position: absolute; top: 18px; inset-inline-start: 18px; z-index: 2;
+  padding: 5px 12px; border-radius: 999px; background: rgba(20,20,20,.55); color: #fff;
+  font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.pmodal__thumbs { display: flex; gap: 8px; padding: 12px; overflow-x: auto; background: #f6f4f0; }
+.pmodal__thumbs button {
+  flex: 0 0 auto; width: 76px; height: 56px; padding: 0; border: 0; cursor: pointer;
+  border-radius: var(--radius-s); overflow: hidden; opacity: .55;
+  transition: opacity .3s var(--ease), box-shadow .3s var(--ease);
+}
+.pmodal__thumbs button img { width: 100%; height: 100%; object-fit: cover; }
+.pmodal__thumbs button:hover { opacity: .85; }
+.pmodal__thumbs button.is-active { opacity: 1; box-shadow: 0 0 0 2px var(--ink); }
+.pmodal.is-single .pmodal__nav, .pmodal.is-single .pmodal__thumbs, .pmodal.is-single .pmodal__counter { display: none; }
+
+.pmodal__body { overflow-y: auto; padding: 40px 36px 28px; display: flex; flex-direction: column; overscroll-behavior: contain; }
+.pmodal__head { display: flex; align-items: center; justify-content: space-between; padding-inline-end: 52px; }
+.pmodal__title { margin: 14px 0 0; font-size: clamp(26px, 2.3vw, 38px); font-weight: 500; line-height: 1.12; letter-spacing: -.02em; }
+.pmodal__meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 24px; margin: 22px 0 0; padding: 18px 0 0; border-top: 1px solid var(--line); }
+.pmodal__meta dt { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+html[lang="ar"] .pmodal__meta dt { letter-spacing: 0; }
+.pmodal__meta dd { margin: 3px 0 0; font-size: 15px; font-weight: 500; }
+.pmodal__text { margin-top: 18px; color: var(--ink-2); font-size: 15px; }
+.pmodal__text p { margin: 0 0 12px; }
+.pmodal__scope { margin-top: 6px; }
+.pmodal__scope h3 { margin: 0 0 10px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+html[lang="ar"] .pmodal__scope h3 { letter-spacing: 0; }
+.pmodal__scope ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.pmodal__scope li { position: relative; padding-inline-start: 20px; font-size: 14px; color: var(--ink); }
+.pmodal__scope li::before { content: ""; position: absolute; inset-inline-start: 0; top: .62em; width: 10px; height: 1px; background: var(--accent); }
+.btn-wa {
+  margin-top: 24px; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 20px; border-radius: 999px; background: var(--ink); color: #fff; font-size: 14px; font-weight: 600;
+  transition: background .3s var(--ease), transform .3s var(--ease);
+}
+.btn-wa:hover { background: #2c2c2c; transform: translateY(-1px); }
+.btn-wa svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; }
+.pmodal__pager { display: flex; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 22px; }
+.pmodal__pager .link-btn { margin: 0; }
+
+@media (max-width: 900px), (orientation: portrait) and (max-width: 1200px) {
+  .pmodal__dialog {
+    left: 0; right: 0; top: auto; bottom: 0; width: 100%; height: calc(100svh - 28px);
+    display: block;                                   /* one scrolling column: photo, then text */
+    border-radius: var(--radius-l) var(--radius-l) 0 0;
+    overflow-y: auto; overscroll-behavior: contain;
+    transform: translateY(40px); opacity: 0;
+  }
+  .pmodal.is-open .pmodal__dialog { transform: none; }
+  .pmodal__media { display: block; }
+  .pmodal__stage { height: min(46svh, 72vw); flex: none; }
+  .pmodal__body { display: block; overflow: visible; padding: 22px 20px 28px; }
+  .btn-wa { display: flex; }
+  .pmodal__nav { width: 38px; height: 38px; top: calc(min(46svh, 72vw) / 2 - 19px); }
+  .pmodal__nav--prev { inset-inline-start: 10px; }
+  .pmodal__nav--next { inset-inline-end: 10px; }
+  .pmodal__thumbs button { width: 60px; height: 46px; }
+  .pmodal__title { font-size: 26px; }
+  .pmodal__close { top: 12px; inset-inline-end: 12px; width: 38px; height: 38px; }
+  .pmodal__head { padding-inline-end: 0; }
+  .project__actions { margin-top: 8px; gap: 10px; }
+  .btn-more { padding: 9px 14px; font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pmodal__dialog, .pmodal__backdrop { transition: none; }
+}
+
 /* ---------- Desktop & landscape: the project always fits, photo slightly wider than square ---------- */
 @media (min-width: 561px) and (orientation: landscape), (min-width: 1201px) {
   .center { align-items: stretch; padding: 30px 0 14px; }        /* sits a little lower */
