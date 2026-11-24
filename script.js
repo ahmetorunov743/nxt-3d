@@ -475,9 +475,10 @@
   }
 
   /* ---------------- wire drums ---------------- */
-  var showTimer = 0, lastDir = 1;
+  var showTimer = 0, lastDir = 1, lastInteract = 0;
   function onInteract(drum, dir) {
     lastDir = dir;
+    lastInteract = performance.now();
     drums.forEach(function (d) { d.setActive(d === drum); });
     clearTimeout(showTimer);
     // first touch of a drum reacts instantly, then follow the rotation calmly
@@ -486,10 +487,15 @@
   }
 
   // Desktop: hovering a card shows its project in the centre (and it stays there)
+  // ignore "hover" caused by cards sliding under a still cursor while the drum turns
+  function hoverAllowed(drum) {
+    return !drum.dragging && Math.abs(drum.offset - drum.target) < 0.02 && performance.now() - lastInteract > 700;
+  }
   function onHover(drum, abs) {
+    if (!hoverAllowed(drum)) return;
     clearTimeout(showTimer);
     showTimer = setTimeout(function () {
-      if (drum.dragging) return;
+      if (!hoverAllowed(drum)) return;
       drums.forEach(function (d) { d.setActive(d === drum); });
       drum.highlight(abs);
       var ref = current && current.type === "project" && current.drum === drum ? current.abs : Math.round(drum.target);
