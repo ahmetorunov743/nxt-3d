@@ -7,7 +7,7 @@
    ===================================================================== */
 window.NXT_SITE = {
   foundedYear: 2014,          // placeholder
-  version: "v0.11",             // fallback only: the real number comes from changelog.js
+  version: "v0.12",             // fallback only: the real number comes from changelog.js
   defaultLang: "en"
 };
 

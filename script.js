@@ -614,7 +614,7 @@
     });
     // text: short description + full story (details) — placeholder until real texts arrive
     pm.text.innerHTML = "";
-    [loc(p.description), p.details ? loc(p.details) : t("modal.demoDetails")].forEach(function (para) {
+    [loc(p.description), p.details ? loc(p.details) : ""].forEach(function (para) {
       String(para).split(/\n\s*\n/).forEach(function (chunk) {
         if (!chunk.trim()) return;
         var el = document.createElement("p"); el.textContent = chunk.trim(); pm.text.appendChild(el);
