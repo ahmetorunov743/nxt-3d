@@ -406,6 +406,11 @@ html[dir="rtl"] .pmodal__nav svg { transform: scaleX(-1); }
 .pmodal__thumbs button img { width: 100%; height: 100%; object-fit: cover; }
 .pmodal__thumbs button:hover { opacity: .85; }
 .pmodal__thumbs button.is-active { opacity: 1; box-shadow: 0 0 0 2px var(--ink); }
+.gallery__thumbs button, .pmodal__thumbs button { position: relative; }
+.tag-before {
+  position: absolute; left: 4px; bottom: 4px; padding: 1px 6px; border-radius: 999px;
+  background: rgba(20,20,20,.72); color: #fff; font-size: 9px; font-weight: 600; letter-spacing: .04em; line-height: 1.5;
+}
 .pmodal.is-single .pmodal__nav, .pmodal.is-single .pmodal__thumbs, .pmodal.is-single .pmodal__counter { display: none; }
 
 .pmodal__body { overflow-y: auto; padding: 40px 36px 28px; display: flex; flex-direction: column; overscroll-behavior: contain; }
@@ -470,7 +475,7 @@ html[lang="ar"] .pmodal__scope h3 { letter-spacing: 0; }
   .gallery__main {
     aspect-ratio: 5 / 4;                                          /* close to the square drum cards, not a pure square */
     width: auto; max-width: 100%;
-    height: clamp(150px, calc(100svh - var(--header-h) - 380px), 46svh);
+    height: clamp(130px, calc(100svh - var(--header-h) - 420px), 46svh);
     max-height: none;
   }
 }

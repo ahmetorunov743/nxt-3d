@@ -12,7 +12,7 @@ i18n.js         настройки (год основания, версия) и 
 projects.js     данные проектов (массив объектов)
 privacy.html    политика конфиденциальности (заглушка)
 terms.html      условия предоставления услуг (заглушка)
-assets/images   фото проектов (сейчас 12 svg-заглушек)
+assets/images   фото проектов
 assets/logo     логотип: nxt-logo-black.svg и nxt-logo-white.svg
 ```
 

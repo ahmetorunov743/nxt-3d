@@ -7,7 +7,7 @@
    ===================================================================== */
 window.NXT_SITE = {
   foundedYear: 2014,          // placeholder
-  version: "v0.12",             // fallback only: the real number comes from changelog.js
+  version: "v0.13",             // fallback only: the real number comes from changelog.js
   defaultLang: "en"
 };
 
@@ -54,6 +54,8 @@ window.NXT_I18N = {
     "scope.parquet": "Sanding back to bare wood|Board repair and replacement|Gap filling|Staining to the chosen tone|Oil or lacquer finish",
     "scope.metal": "Cleaning and degreasing|Rust and oxidation removal|Polishing or brushing|Re-plating or patina|Protective coating",
     "scope.glass": "Scratch removal|Stain and limescale removal|Polishing|Seal and frame repair|Protective treatment",
+    "photo.before": "Before",
+    "photo.after": "After",
     "work.fitout": "Fit-out",
     "work.renovation": "Renovation",
     "work.marble": "Marble restoration",
@@ -119,6 +121,8 @@ window.NXT_I18N = {
     "scope.parquet": "Шлифовка до чистого дерева|Ремонт и замена досок|Заделка щелей|Тонирование в нужный цвет|Масло или лак",
     "scope.metal": "Очистка и обезжиривание|Удаление ржавчины и окислов|Полировка или браширование|Новое покрытие или патина|Защитный слой",
     "scope.glass": "Удаление царапин|Удаление пятен и известкового налёта|Полировка|Ремонт уплотнителей и рам|Защитная обработка",
+    "photo.before": "До",
+    "photo.after": "После",
     "work.fitout": "Фитаут",
     "work.renovation": "Ремонт",
     "work.marble": "Реставрация мрамора",
@@ -184,6 +188,8 @@ window.NXT_I18N = {
     "scope.parquet": "الصنفرة حتى الخشب الخام|إصلاح واستبدال الألواح|سد الفراغات|التلوين حسب الدرجة المختارة|زيت أو ورنيش",
     "scope.metal": "التنظيف وإزالة الدهون|إزالة الصدأ والأكسدة|التلميع أو التنعيم|إعادة الطلاء أو الباتينا|طبقة حماية",
     "scope.glass": "إزالة الخدوش|إزالة البقع والترسبات|التلميع|إصلاح الإطارات والعوازل|معالجة واقية",
+    "photo.before": "قبل",
+    "photo.after": "بعد",
     "work.fitout": "تجهيز داخلي",
     "work.renovation": "تجديد",
     "work.marble": "ترميم الرخام",

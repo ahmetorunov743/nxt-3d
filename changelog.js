@@ -54,5 +54,9 @@ window.NXT_CHANGELOG = [
   { v: "0.12", date: "2026-11-26", text: {
       en: "First real project on the drums: bathroom with a glass shower.",
       ru: "Первый настоящий проект на барабане: ванная со стеклянной душевой.",
-      ar: "أول مشروع حقيقي على الأسطوانة: حمام مع كابينة دش زجاجية." } }
+      ar: "أول مشروع حقيقي على الأسطوانة: حمام مع كابينة دش زجاجية." } },
+  { v: "0.13", date: "2026-11-28", text: {
+      en: "Before / after photos for projects; all demo placeholders removed.",
+      ru: "Фото «до» и «после» у проектов; все заглушки убраны.",
+      ar: "صور قبل وبعد للمشاريع؛ تمت إزالة جميع العناصر المؤقتة." } }
 ];
