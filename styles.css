@@ -336,7 +336,7 @@ button.gallery__main::after {
 button.gallery__main:hover::after { background: rgba(255,255,255,.08); }
 .project__actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
 .project__actions .link-btn { margin-top: 0; }
-.btn-more {
+.btn-more { white-space: nowrap;
   display: inline-flex; align-items: center; gap: 10px;
   padding: 11px 20px; border: 0; border-radius: 999px; cursor: pointer;
   background: var(--ink); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: .01em;

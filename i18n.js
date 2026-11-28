@@ -7,7 +7,7 @@
    ===================================================================== */
 window.NXT_SITE = {
   foundedYear: 2014,          // placeholder
-  version: "v0.13",             // fallback only: the real number comes from changelog.js
+  version: "v0.14",             // fallback only: the real number comes from changelog.js
   defaultLang: "en"
 };
 
@@ -53,6 +53,7 @@ window.NXT_I18N = {
     "scope.tile": "Grout cleaning and replacement|Replacing damaged tiles|Deep cleaning|Re-sealing|Protective coating",
     "scope.parquet": "Sanding back to bare wood|Board repair and replacement|Gap filling|Staining to the chosen tone|Oil or lacquer finish",
     "scope.metal": "Cleaning and degreasing|Rust and oxidation removal|Polishing or brushing|Re-plating or patina|Protective coating",
+    "scope.wood": "Cleaning and inspection|Sanding the surface|Filling cracks|Oil impregnation|Protective finish",
     "scope.glass": "Scratch removal|Stain and limescale removal|Polishing|Seal and frame repair|Protective treatment",
     "photo.before": "Before",
     "photo.after": "After",
@@ -63,6 +64,7 @@ window.NXT_I18N = {
     "work.parquet": "Parquet restoration",
     "work.metal": "Metal restoration",
     "work.glass": "Glass restoration",
+    "work.wood": "Wood restoration",
 
     "footer.tagline": "Premium fit-out and restoration in Dubai.",
     "footer.contacts": "Contacts",
@@ -100,7 +102,7 @@ window.NXT_I18N = {
     "project.areaUnit": "м²",
     "project.back": "О компании",
 
-    "modal.open": "Подробнее о проекте",
+    "modal.open": "Подробнее",
     "modal.close": "Закрыть",
     "modal.prevPhoto": "Предыдущее фото",
     "modal.nextPhoto": "Следующее фото",
@@ -120,6 +122,7 @@ window.NXT_I18N = {
     "scope.tile": "Чистка и замена затирки|Замена повреждённой плитки|Глубокая чистка|Повторная пропитка|Защитное покрытие",
     "scope.parquet": "Шлифовка до чистого дерева|Ремонт и замена досок|Заделка щелей|Тонирование в нужный цвет|Масло или лак",
     "scope.metal": "Очистка и обезжиривание|Удаление ржавчины и окислов|Полировка или браширование|Новое покрытие или патина|Защитный слой",
+    "scope.wood": "Очистка и осмотр|Шлифовка поверхности|Заделка трещин|Пропитка маслом|Защитное покрытие",
     "scope.glass": "Удаление царапин|Удаление пятен и известкового налёта|Полировка|Ремонт уплотнителей и рам|Защитная обработка",
     "photo.before": "До",
     "photo.after": "После",
@@ -130,6 +133,7 @@ window.NXT_I18N = {
     "work.parquet": "Реставрация паркета",
     "work.metal": "Реставрация металла",
     "work.glass": "Реставрация стекла",
+    "work.wood": "Реставрация дерева",
 
     "footer.tagline": "Премиальный фитаут и реставрация в Дубае.",
     "footer.contacts": "Контакты",
@@ -187,6 +191,7 @@ window.NXT_I18N = {
     "scope.tile": "تنظيف واستبدال الترويب|استبدال البلاط التالف|تنظيف عميق|إعادة العزل|طبقة حماية",
     "scope.parquet": "الصنفرة حتى الخشب الخام|إصلاح واستبدال الألواح|سد الفراغات|التلوين حسب الدرجة المختارة|زيت أو ورنيش",
     "scope.metal": "التنظيف وإزالة الدهون|إزالة الصدأ والأكسدة|التلميع أو التنعيم|إعادة الطلاء أو الباتينا|طبقة حماية",
+    "scope.wood": "التنظيف والفحص|صنفرة السطح|سد الشقوق|التشريب بالزيت|طبقة حماية",
     "scope.glass": "إزالة الخدوش|إزالة البقع والترسبات|التلميع|إصلاح الإطارات والعوازل|معالجة واقية",
     "photo.before": "قبل",
     "photo.after": "بعد",
@@ -197,6 +202,7 @@ window.NXT_I18N = {
     "work.parquet": "ترميم الباركيه",
     "work.metal": "ترميم المعادن",
     "work.glass": "ترميم الزجاج",
+    "work.wood": "ترميم الخشب",
 
     "footer.tagline": "تجهيز وترميم فاخر في دبي.",
     "footer.contacts": "التواصل",

@@ -25,7 +25,7 @@ assets/logo     логотип: nxt-logo-black.svg и nxt-logo-white.svg
   side: "left",                      // "left" или "right": на каком барабане
   title: { en: "Villa Azure", ru: "Вилла Azure", ar: "فيلا أزور" }, // или просто "Villa Azure"
   location: { en: "Palm Jumeirah", ru: "Пальм-Джумейра", ar: "نخلة جميرا" },
-  workType: "marble",                // fitout | renovation | marble | tile | parquet | metal | glass
+  workType: "marble",                // fitout | renovation | marble | tile | parquet | metal | glass | wood
   year: 2025,
   area: 640,                         // м²
   description: { en: "...", ru: "...", ar: "..." },

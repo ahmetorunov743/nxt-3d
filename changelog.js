@@ -58,5 +58,9 @@ window.NXT_CHANGELOG = [
   { v: "0.13", date: "2026-11-28", text: {
       en: "Before / after photos for projects; all demo placeholders removed.",
       ru: "Фото «до» и «после» у проектов; все заглушки убраны.",
-      ar: "صور قبل وبعد للمشاريع؛ تمت إزالة جميع العناصر المؤقتة." } }
+      ar: "صور قبل وبعد للمشاريع؛ تمت إزالة جميع العناصر المؤقتة." } },
+  { v: "0.14", date: "2026-11-28", text: {
+      en: "New project on the right drum: restoration of solid wood stump stools.",
+      ru: "Новый проект на правом барабане: реставрация табуретов из цельного дерева.",
+      ar: "مشروع جديد على الأسطوانة اليمنى: ترميم مقاعد من جذوع الخشب." } }
 ];

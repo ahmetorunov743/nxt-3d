@@ -10,7 +10,7 @@
      side        "left" | "right"  — which drum shows the project
      title       string OR { en, ru, ar }
      location    string OR { en, ru, ar }  (Dubai district)
-     workType    fitout | renovation | marble | tile | parquet | metal | glass
+     workType    fitout | renovation | marble | tile | parquet | metal | glass | wood
                  (labels are translated in i18n.js -> "work.<key>")
      year        number
      area        number, square metres
@@ -44,5 +44,28 @@ window.NXT_PROJECTS = [
     ],
     images: ["assets/images/bathroom-glass-01.jpg"],
     before: ["assets/images/bathroom-glass-01-before.webp"]
+  },
+  {
+    id: "wood-stools-01",
+    side: "right",
+    title: { en: "Solid Wood Stump Stools", ru: "Табуреты из цельного дерева", ar: "مقاعد من جذوع الخشب الطبيعي" },
+    location: { en: "Dubai", ru: "Дубай", ar: "دبي" },
+    workType: "wood",
+    year: null,
+    area: null,
+    description: {
+      en: "Restoration of five solid-wood stump stools for a landscaped garden: sanding, crack treatment and oil impregnation that brings back the warm natural tone and protects the wood outdoors.",
+      ru: "Реставрация пяти табуретов из цельных пней для ландшафтного сада: шлифовка, обработка трещин и пропитка маслом, которая вернула дереву тёплый природный цвет и защищает его на улице.",
+      ar: "ترميم خمسة مقاعد من جذوع الخشب الطبيعي لحديقة منسّقة: صنفرة ومعالجة الشقوق وتشريب بالزيت يعيد للخشب لونه الطبيعي الدافئ ويحميه في الهواء الطلق."
+    },
+    scope: [
+      { en: "Cleaning and inspection of every piece", ru: "Очистка и осмотр каждого изделия", ar: "تنظيف وفحص كل قطعة" },
+      { en: "Sanding of the tops and sides", ru: "Шлифовка верхних плоскостей и боковин", ar: "صنفرة الأسطح العلوية والجوانب" },
+      { en: "Treatment of natural cracks", ru: "Обработка естественных трещин", ar: "معالجة الشقوق الطبيعية" },
+      { en: "Oil impregnation in several coats", ru: "Пропитка маслом в несколько слоёв", ar: "تشريب بالزيت على عدة طبقات" },
+      { en: "UV and moisture protection for outdoor use", ru: "Защита от солнца и влаги для улицы", ar: "حماية من الشمس والرطوبة للاستخدام الخارجي" }
+    ],
+    images: ["assets/images/wood-stools-01.jpg"],
+    before: ["assets/images/wood-stools-01-before.jpg"]
   }
 ];
